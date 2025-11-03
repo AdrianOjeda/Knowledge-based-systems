@@ -97,13 +97,15 @@
 )
 ;;Recomendacion por tarjeta vencida
 (defrule tarjeta-vencida
-  (tarjeta (tarjeta-id ?tid) (banco ?banco) (grupo ?grupo) (exp-date ?fecha&:"01-12-23"))
+  (tarjeta (tarjeta-id ?tid) (banco ?banco) (grupo ?grupo) (exp-date ?fecha))
+  (test (eq ?fecha "01-12-23"))
   (orden (tarjeta-id ?tid) (customer-id ?cid))
   =>
   (assert (recomendacion (customer-id ?cid)
                          (product-name "Actualización de tarjeta")
-                         (reason (str-cat "Tu tarjeta " ?banco " " ?grupo " esta vencida. Actualízala para seguir disfrutando de promociones."))))
+                         (reason (str-cat "Tu tarjeta " ?banco " " ?grupo " está vencida. Actualízala para seguir disfrutando de promociones."))))
 )
+
 ;;Recomendacion por cliente inactivo
 (defrule cliente-inactivo
   (customer (customer-id ?cid) (name ?name))
