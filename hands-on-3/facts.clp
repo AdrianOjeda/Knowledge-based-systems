@@ -1,24 +1,39 @@
-(deffacts clientes-y-productos
+;; --- Hechos iniciales del sistema recomendador ---
+
+(deffacts base-de-conocimiento
+
   ;; Clientes
-  (customer (customer-id 201) (name "Adrian") (tipo mayorista))
-  (customer (customer-id 202) (name "Brenda") (tipo menudista))
-  (customer (customer-id 203) (name "Carlos") (tipo menudista))
-  (customer (customer-id 204) (name "Diana") (tipo mayorista)) ;; inactiva
-  (customer (customer-id 205) (name "Elena") (tipo menudista)) ;; inactiva
+  (customer (customer-id 101) (name "Ana") (tipo menudista))
+  (customer (customer-id 102) (name "Beto") (tipo mayorista))
+  (customer (customer-id 103) (name "Carlos") (tipo menudista))
+  (customer (customer-id 104) (name "Diana") (tipo mayorista)) 
+  (customer (customer-id 105) (name "Elena") (tipo menudista)) 
 
-  ;; Productos
-  (product (part-number 10) (name "iPhone16") (category smartphone))
-  (product (part-number 11) (name "MacBookAir") (category compu))
-  (product (part-number 12) (name "Funda") (category accesorio))
-  (product (part-number 13) (name "Mica") (category accesorio))
-  (product (part-number 14) (name "Note21") (category smartphone))
-)
+  ;; Smartphones
+  (smartphone (part-number 1) (marca apple) (modelo "iPhone16") (precio 27000))
+  (smartphone (part-number 2) (marca samsung) (modelo "Note21") (precio 22000))
 
-(deffacts historial-de-compras
-  ;; Órdenes existentes
-  (order (customer-id 201) (part-number 10)) ;; Adrian compró iPhone16
-  (order (customer-id 201) (part-number 11)) ;; Adrian compró MacBookAir
-  (order (customer-id 202) (part-number 14)) ;; Brenda compró Note21
-  (order (customer-id 203) (part-number 10)) ;; Carlos compró iPhone16
-  (order (customer-id 203) (part-number 12)) ;; Carlos compró Funda
+  ;; Computadoras
+  (compu (part-number 3) (marca apple) (modelo "MacBookAir") (precio 30000))
+  (compu (part-number 4) (marca apple) (modelo "MacBookPro") (precio 47000))
+
+  ;; Accesorios
+  (accesorio (part-number 5) (nombre "Funda") (tipo funda) (precio 500))
+  (accesorio (part-number 6) (nombre "Mica") (tipo mica) (precio 200))
+  (accesorio (part-number 7) (nombre "Mouse Bluetooth") (tipo mouse) (precio 800))
+
+  ;; Tarjetas de crédito
+  (tarjeta (tarjeta-id 201) (banco banamex) (grupo oro) (exp-date "01-12-26"))
+  (tarjeta (tarjeta-id 202) (banco liverpool) (grupo visa) (exp-date "01-10-25"))
+  (tarjeta (tarjeta-id 203) (banco bbva) (grupo visa) (exp-date "01-12-23"))
+
+  ;; Ordenes de compra
+  (orden (orden-id 1001) (customer-id 101) (part-number 1) (tarjeta-id 201) (qty 1) (pago credito)) 
+  (orden (orden-id 1002) (customer-id 102) (part-number 2) (tarjeta-id 202) (qty 5) (pago credito)) 
+  (orden (orden-id 1003) (customer-id 102) (part-number 3) (tarjeta-id 201) (qty 5) (pago contado)) 
+  (orden (orden-id 1004) (customer-id 103) (part-number 1) (tarjeta-id 203) (qty 1) (pago contado)) 
+  (orden (orden-id 1005) (customer-id 103) (part-number 5) (tarjeta-id 203) (qty 1) (pago contado)) 
+
+  ;; Vales 
+  (vale (customer-id 102) (monto 5700)) ;; 
 )
